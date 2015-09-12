@@ -36,9 +36,11 @@
         {
             var commandManager = ServiceLocator.Default.ResolveType<ICommandManager>();
 
-            commandManager.CreateCommand("File.Open", new InputGesture(Key.O, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
-            commandManager.CreateCommand("File.Print", new InputGesture(Key.P, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
-            commandManager.CreateCommand("File.Exit", throwExceptionWhenCommandIsAlreadyCreated: false);
+            commandManager.CreateCommand("Script.Open", new InputGesture(Key.O, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
+            commandManager.CreateCommand("Script.Save", new InputGesture(Key.S, ModifierKeys.Control), throwExceptionWhenCommandIsAlreadyCreated: false);
+            commandManager.CreateCommand("Script.SaveAs", null, throwExceptionWhenCommandIsAlreadyCreated: false);
+
+            commandManager.CreateCommand("App.Exit", throwExceptionWhenCommandIsAlreadyCreated: false);
 
             commandManager.CreateCommand("Help.About", throwExceptionWhenCommandIsAlreadyCreated: false);
         }

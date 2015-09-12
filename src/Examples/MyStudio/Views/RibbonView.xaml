@@ -98,44 +98,28 @@
                     </RibbonGallery>
                 </RibbonApplicationMenu.AuxiliaryPaneContent>
 
-                <RibbonApplicationMenuItem Header="Open..." ImageSource="/Resources/Images/open.png" Command="{catel:CommandManagerBinding File.Open}" />
+                <RibbonApplicationMenuItem Header="Open Script" ImageSource="/Resources/Images/open.png" Command="{catel:CommandManagerBinding Script.Open}" />
+                <RibbonApplicationMenuItem Header="Save" ImageSource="/Resources/Images/print.png" Command="{catel:CommandManagerBinding Script.Save}" />
+                <RibbonApplicationMenuItem Header="Save As" ImageSource="/Resources/Images/print.png" Command="{catel:CommandManagerBinding Script.SaveAs}" />
                 <RibbonSeparator />
-                <RibbonApplicationMenuItem Header="Print..." ImageSource="/Resources/Images/print.png" Command="{catel:CommandManagerBinding File.Print}" />
-                <RibbonSeparator />
-                <RibbonApplicationMenuItem Header="Exit" ImageSource="/Resources/Images/exit.png" Command="{catel:CommandManagerBinding File.Exit}" />
+                <RibbonApplicationMenuItem Header="Exit" ImageSource="/Resources/Images/exit.png" Command="{catel:CommandManagerBinding App.Exit}" />
             </RibbonApplicationMenu>
         </Ribbon.ApplicationMenu>
 
         <RibbonTab Header="View">
 
-            <RibbonGroup Header="Workspace">
-                <RibbonButton Label="Refresh" LargeImageSource="/Resources/Images/refresh.png" 
-                                     Command="{Binding RefreshWorkspace}" />
+            <RibbonGroup Header="Script">
+                <RibbonButton Label="Open" LargeImageSource="/Resources/Images/open.png" 
+                                     Command="{catel:CommandManagerBinding Script.Open}"  />
+                <RibbonButton Label="Save" LargeImageSource="/Resources/Images/save.png" 
+                                     Command="{catel:CommandManagerBinding Script.Save}"  />
+                <RibbonButton Label="Save As" LargeImageSource="/Resources/Images/save.png" 
+                                     Command="{catel:CommandManagerBinding Script.SaveAs}"  />
             </RibbonGroup>
 
-            <RibbonGroup Header="Keyboard">
-                <RibbonSplitButton Label="Shortcuts" LargeImageSource="/Resources/Images/keyboard.png"
-                                          Command="{Binding ShowKeyboardMappings}" IsCheckable="False">
-                    <RibbonGallery ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                        <RibbonGallery.Resources>
-                            <Style TargetType="RibbonGalleryItem">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="RibbonGalleryItem">
-                                            <Grid Background="Transparent">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Grid>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </RibbonGallery.Resources>
-
-                        <RibbonGalleryItem IsSelected="False" >
-                            <views:KeyboardMappingsOverviewView />
-                        </RibbonGalleryItem>
-                    </RibbonGallery>
-                </RibbonSplitButton>
+            <RibbonGroup Header="Editing">
+                <RibbonButton Label="Undo" LargeImageSource="/Resources/Images/undo.png" Command="{Binding UndoCommand}" />
+                <RibbonButton Label="Redo" LargeImageSource="/Resources/Images/redo.png" Command="{Binding RedoCommand}" />
             </RibbonGroup>
         </RibbonTab>
     </Ribbon>
