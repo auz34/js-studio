@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("MyStudio")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("FrontRange Solutions")]
+[assembly: AssemblyCompany("Andrew Zavgorodniy")]
 [assembly: AssemblyProduct("MyStudio")]
-[assembly: AssemblyCopyright("Copyright © FrontRange Solutions 2015")]
+[assembly: AssemblyCopyright("Copyright © Andrew Zavgorodniy 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
