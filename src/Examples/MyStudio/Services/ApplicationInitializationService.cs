@@ -62,7 +62,7 @@
 
         private async Task InitializeMainModel()
         {
-            var studioModel = new StudioModel();
+            var studioModel = new StudioStateModel();
             ServiceLocator.Default.RegisterType(m => studioModel);
         }
     }

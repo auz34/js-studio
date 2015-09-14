@@ -115,7 +115,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\StudioModel.cs" />
+    <Compile Include="Models\JsProject.cs" />
+    <Compile Include="Models\StudioStateModel.cs" />
     <Compile Include="Services\ApplicationInitializationService.cs" />
     <Compile Include="Services\RibbonService.cs" />
     <Compile Include="ViewModels\EditorViewModel.cs" />

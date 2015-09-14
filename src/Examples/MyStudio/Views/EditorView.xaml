@@ -9,6 +9,5 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <avalonEdit:TextEditor SyntaxHighlighting="Javascript" />
-
     </Grid>
 </catel:UserControl>
