@@ -13,10 +13,10 @@
 
             this.StudioState = studioState;
 
-            if (string.IsNullOrEmpty(this.StudioState.CurrentProject.MainScriptFilePath))
-            {
-                this.ScriptText = "// Start editing file here";
-            } 
+            this.ScriptText = 
+                string.IsNullOrEmpty(this.StudioState.CurrentProject.MainScriptFilePath) ? 
+                    "// Start editing file here" : 
+                    System.IO.File.ReadAllText(this.StudioState.CurrentProject.MainScriptFilePath); 
         }
 
         [Model]

@@ -7,7 +7,7 @@
     {
         public EditorView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

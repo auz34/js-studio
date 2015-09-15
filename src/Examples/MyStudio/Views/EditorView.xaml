@@ -5,11 +5,12 @@
              xmlns:catel="http://catel.codeplex.com"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             xmlns:behaviors="clr-namespace:MyStudio.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <avalonEdit:TextEditor FontFamily="Consolas"
+        <avalonEdit:TextEditor x:Name="Editor" FontFamily="Consolas"
 				FontSize="13pt"
-				SyntaxHighlighting="C#" />
+				SyntaxHighlighting="C#" behaviors:BindableEditorText.BindableText ="{Binding ScriptText}"/>
     </Grid>
 </catel:UserControl>

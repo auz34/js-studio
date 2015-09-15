@@ -26,7 +26,7 @@
                                     <!-- Other RowDefinition are created in code-behind -->
                                 </Grid.RowDefinitions>
 
-                                <views:EditorView DataContext="{Binding }"> </views:EditorView>
+                                <views:EditorView> </views:EditorView>
                             </Grid>
                         </xcad:LayoutDocument>
                     </xcad:LayoutDocumentPane>
