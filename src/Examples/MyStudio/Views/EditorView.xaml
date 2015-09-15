@@ -8,6 +8,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <avalonEdit:TextEditor SyntaxHighlighting="Javascript" />
+        <avalonEdit:TextEditor FontFamily="Consolas"
+				FontSize="13pt"
+				SyntaxHighlighting="C#" />
     </Grid>
 </catel:UserControl>
