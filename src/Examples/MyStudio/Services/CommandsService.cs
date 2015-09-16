@@ -1,6 +1,7 @@
 ﻿namespace MyStudio.Services
 {
     using System;
+    using System.Windows;
 
     using Catel;
     using Catel.Memento;
@@ -15,24 +16,38 @@
 
         private readonly IMessageService messageService;
 
+        private readonly ICommandManager commandManager;
+
         private readonly StudioStateModel model;
 
-        public CommandsService(StudioStateModel model, 
+        public CommandsService(StudioStateModel model,
+            ICommandManager commandManager,
             IMementoService mementoService,
             IMessageService messageService)
         {
             Argument.IsNotNull(() => model);
+            Argument.IsNotNull(() => commandManager);
             Argument.IsNotNull(() => mementoService);
             Argument.IsNotNull(() => messageService);
 
             this.model = model;
+            this.commandManager = commandManager;
             this.mementoService = mementoService;
             this.messageService = messageService;
 
             this.UndoCommand = new Command(this.Undo, this.CanUndo);
             this.RedoCommand = new Command(this.Redo, this.CanRedo);
             this.OpenProjectCommand = new Command(this.OpenProject, () => true);
+            
+            this.SaveProjectAsCommand = new Command(this.SaveAsProject, () => true);
             this.SaveProjectCommand = new Command(delegate { this.SaveProject(); }, this.CanSave);
+
+            this.ExitCommand = new Command(this.Exit);
+
+            commandManager.RegisterCommand("Script.Open", this.OpenProjectCommand);
+            commandManager.RegisterCommand("Script.Save", this.SaveProjectCommand);
+            commandManager.RegisterCommand("Script.SaveAs", this.SaveProjectAsCommand);
+            commandManager.RegisterCommand("App.Exit", this.ExitCommand);
         }
 
         public Command UndoCommand { get; private set; }
@@ -42,6 +57,13 @@
         public Command OpenProjectCommand { get; private set; }
 
         public Command SaveProjectCommand { get; private set; }
+
+        public Command SaveProjectAsCommand { get; private set; }
+
+        /// <summary>
+        /// Gets the Exit command.
+        /// </summary>
+        public Command ExitCommand { get; private set; }
 
         /// <summary>
         /// The undo.
@@ -79,17 +101,32 @@
         {
             if (this.CanSave())
             {
-                var messageResult = await this.messageService.ShowWarningAsync("Do you want to save changes Current project contains");
-                if (messageResult == MessageResult.OK)
+                switch (await this.messageService.ShowAsync("Do you want to save changes?", "Save changes?", MessageButton.YesNoCancel))
                 {
-                    if (!this.SaveProject())
-                    {
+                    case MessageResult.Cancel:
                         return;
-                    }
-                }
 
-                throw new NotImplementedException();
+                    case MessageResult.Yes:
+                        if (!this.SaveProject())
+                        {
+                            return;
+                        }
+                        break;
+
+                    case MessageResult.No:
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
+
+            throw new NotImplementedException();
+        }
+
+        private void SaveAsProject()
+        {
+            throw new NotImplementedException();
         }
 
         private bool SaveProject()
@@ -100,6 +137,36 @@
         private bool CanSave()
         {
             return this.mementoService.CanUndo || this.model.CurrentProject.HasChanges;
+        }
+
+        /// <summary>
+        /// Method to invoke when the Exit command is executed. 
+        /// </summary>
+        private async void Exit()
+        {
+            if (this.CanSave())
+            {
+                switch (await this.messageService.ShowAsync("Do you want to save changes?", "Save changes?", MessageButton.YesNoCancel))
+                {
+                    case MessageResult.Cancel:
+                        return;
+
+                    case MessageResult.Yes:
+                        if (!this.SaveProject())
+                        {
+                            return;
+                        }
+                        break;
+
+                    case MessageResult.No:
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            Application.Current.Shutdown();
         }
     }
 }
