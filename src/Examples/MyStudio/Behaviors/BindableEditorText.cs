@@ -4,8 +4,6 @@
 
     using ICSharpCode.AvalonEdit;
 
-    using Xceed.Wpf.AvalonDock.Layout;
-
     public static class BindableEditorText
     {
         /// <summary>
