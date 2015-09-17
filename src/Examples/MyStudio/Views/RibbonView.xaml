@@ -121,6 +121,10 @@
                 <RibbonButton Label="Undo" LargeImageSource="/Resources/Images/undo.png" Command="{Binding UndoCommand}" />
                 <RibbonButton Label="Redo" LargeImageSource="/Resources/Images/redo.png" Command="{Binding RedoCommand}" />
             </RibbonGroup>
+            
+            <RibbonGroup Header="Debug">
+                <RibbonButton Label="Start" LargeImageSource="/Resources/Images/start.png" Command="{Binding StartCommand}" />
+            </RibbonGroup>
         </RibbonTab>
     </Ribbon>
 </catel:UserControl>
