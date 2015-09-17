@@ -130,10 +130,7 @@
             this.openFileService.Filter = "Single script files|*.js";
             if (this.openFileService.DetermineFile())
             {
-                this.model.CurrentProject = new JsProject()
-                                                {
-                                                    MainScriptFilePath = this.openFileService.FileName
-                                                };
+                this.model.CurrentProject = new JsProject(this.openFileService.FileName);
             }
         }
 
