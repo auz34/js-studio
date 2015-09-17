@@ -18,22 +18,27 @@
 
         private readonly ICommandManager commandManager;
 
+        private readonly IOpenFileService openFileService;
+
         private readonly StudioStateModel model;
 
         public CommandsService(StudioStateModel model,
             ICommandManager commandManager,
             IMementoService mementoService,
-            IMessageService messageService)
+            IMessageService messageService,
+            IOpenFileService openFileService)
         {
             Argument.IsNotNull(() => model);
             Argument.IsNotNull(() => commandManager);
             Argument.IsNotNull(() => mementoService);
             Argument.IsNotNull(() => messageService);
+            Argument.IsNotNull(() => openFileService);
 
             this.model = model;
             this.commandManager = commandManager;
             this.mementoService = mementoService;
             this.messageService = messageService;
+            this.openFileService = openFileService;
 
             this.UndoCommand = new Command(this.Undo, this.CanUndo);
             this.RedoCommand = new Command(this.Redo, this.CanRedo);
@@ -120,8 +125,16 @@
                         throw new ArgumentOutOfRangeException();
                 }
             }
-
-            throw new NotImplementedException();
+            
+            // TODO add more files if we decide to work with "projects"
+            this.openFileService.Filter = "Single script files|*.js";
+            if (this.openFileService.DetermineFile())
+            {
+                this.model.CurrentProject = new JsProject()
+                                                {
+                                                    MainScriptFilePath = this.openFileService.FileName
+                                                };
+            }
         }
 
         private void SaveAsProject()
