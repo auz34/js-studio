@@ -11,6 +11,6 @@
     <Grid>
         <avalonEdit:TextEditor x:Name="Editor" FontFamily="Consolas"
 				FontSize="13pt"
-				SyntaxHighlighting="C#" behaviors:BindableEditorText.BindableText ="{Binding ScriptText}"/>
+				SyntaxHighlighting="C#" behaviors:BindableEditorText.BindableText ="{Binding ScriptText, Mode=TwoWay}"/>
     </Grid>
 </catel:UserControl>
