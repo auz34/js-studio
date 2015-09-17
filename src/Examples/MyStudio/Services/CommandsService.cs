@@ -47,6 +47,8 @@
             this.SaveProjectAsCommand = new Command(this.SaveAsProject, () => true);
             this.SaveProjectCommand = new Command(delegate { this.SaveProject(); }, this.CanSave);
 
+            this.StartCommand = new Command(this.Start, this.CanStart);
+
             this.ExitCommand = new Command(this.Exit);
 
             commandManager.RegisterCommand("Script.Open", this.OpenProjectCommand);
@@ -64,6 +66,8 @@
         public Command SaveProjectCommand { get; private set; }
 
         public Command SaveProjectAsCommand { get; private set; }
+
+        public Command StartCommand { get; private set; }
 
         /// <summary>
         /// Gets the Exit command.
@@ -177,6 +181,19 @@
             }
 
             Application.Current.Shutdown();
+        }
+
+        /// <summary>
+        /// Starts debugging session. 
+        /// </summary>
+        private void Start()
+        {
+            this.model.StartSession();
+        }
+
+        private bool CanStart()
+        {
+            return !this.model.IsSessionActive;
         }
     }
 }

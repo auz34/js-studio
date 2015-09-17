@@ -18,5 +18,7 @@ public static class ModuleInitializer
         serviceLocator.RegisterType<IApplicationInitializationService, ApplicationInitializationService>();
 
         serviceLocator.RegisterType<ICommandsService, CommandsService>();
+
+        serviceLocator.RegisterType<IInterpreter, DummyInterpreter>();
     }
 }

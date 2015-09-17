@@ -8,12 +8,27 @@
 
     public class RibbonViewModel : ViewModelBase
     {
+        private StudioStateModel model;
+
+        private ICommandsService commandsService;
+
         public RibbonViewModel(StudioStateModel model,
             ICommandsService commandsService)
         {
             Argument.IsNotNull(() => model);
             Argument.IsNotNull(() => commandsService);
-            
+
+            this.model = model;
+            this.commandsService = commandsService;
+        }
+
+
+        public Command StartCommand
+        {
+            get
+            {
+                return this.commandsService.StartCommand;
+            }
         }
 
         

@@ -136,7 +136,9 @@
     <Compile Include="Models\StudioStateModel.cs" />
     <Compile Include="Services\ApplicationInitializationService.cs" />
     <Compile Include="Services\CommandsService.cs" />
+    <Compile Include="Services\DummyInterpreter.cs" />
     <Compile Include="Services\Interfaces\ICommandsService.cs" />
+    <Compile Include="Services\Interfaces\IInterpreter.cs" />
     <Compile Include="Services\RibbonService.cs" />
     <Compile Include="ViewModels\EditorViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

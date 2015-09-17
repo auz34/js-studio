@@ -22,6 +22,11 @@
         /// <summary>
         /// Gets command of opening new project.
         /// </summary>
-        Command SaveProjectCommand { get; } 
+        Command SaveProjectCommand { get; }
+
+        /// <summary>
+        /// Gets command of starting new execution.
+        /// </summary>
+        Command StartCommand { get; } 
     }
 }
