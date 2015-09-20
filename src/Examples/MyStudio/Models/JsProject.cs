@@ -63,6 +63,13 @@
 
             File.WriteAllText(path, this.MainScript);
             this.MainScriptFilePath = path;
+            this.HasChanges = false;
+        }
+
+        protected override void OnPropertyChanged(AdvancedPropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+            this.HasChanges = true;
         }
     }
 }
