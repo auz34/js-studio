@@ -27,7 +27,7 @@
         {
             get
             {
-                return this.commandsService.StartCommand;
+                return this.commandsService != null ? this.commandsService.StartCommand : null;
             }
         }
 
