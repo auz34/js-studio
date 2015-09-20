@@ -4,6 +4,7 @@
     using System.Windows;
 
     using Catel;
+    using Catel.Data;
     using Catel.Memento;
     using Catel.MVVM;
     using Catel.Services;
@@ -20,31 +21,36 @@
 
         private readonly IOpenFileService openFileService;
 
+        private readonly ISaveFileService saveFileService;
+
         private readonly StudioStateModel model;
 
         public CommandsService(StudioStateModel model,
             ICommandManager commandManager,
             IMementoService mementoService,
             IMessageService messageService,
-            IOpenFileService openFileService)
+            IOpenFileService openFileService,
+            ISaveFileService saveFileService)
         {
             Argument.IsNotNull(() => model);
             Argument.IsNotNull(() => commandManager);
             Argument.IsNotNull(() => mementoService);
             Argument.IsNotNull(() => messageService);
             Argument.IsNotNull(() => openFileService);
+            Argument.IsNotNull(() => saveFileService);
 
             this.model = model;
             this.commandManager = commandManager;
             this.mementoService = mementoService;
             this.messageService = messageService;
             this.openFileService = openFileService;
+            this.saveFileService = saveFileService;
 
             this.UndoCommand = new Command(this.Undo, this.CanUndo);
             this.RedoCommand = new Command(this.Redo, this.CanRedo);
             this.OpenProjectCommand = new Command(this.OpenProject, () => true);
-            
-            this.SaveProjectAsCommand = new Command(this.SaveAsProject, () => true);
+
+            this.SaveProjectAsCommand = new Command(delegate { this.SaveAsProject(); }, () => true);
             this.SaveProjectCommand = new Command(delegate { this.SaveProject(); }, this.CanSave);
 
             this.StartCommand = new Command(this.Start, this.CanStart);
@@ -138,14 +144,27 @@
             }
         }
 
-        private void SaveAsProject()
+        private bool SaveAsProject()
         {
-            throw new NotImplementedException();
+            this.saveFileService.Filter = "Single script files|*.js";
+            if (this.saveFileService.DetermineFile())
+            {
+                this.model.CurrentProject.SaveProject(this.saveFileService.FileName);
+                return true;
+            }
+
+            return false;
         }
 
         private bool SaveProject()
         {
-            throw new NotImplementedException();
+            if (this.model.CurrentProject.IsNew)
+            {
+                return this.SaveAsProject();
+            }
+
+            this.model.CurrentProject.SaveProject(null);
+            return true;
         }
 
         private bool CanSave()

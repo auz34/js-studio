@@ -40,7 +40,29 @@
 
         public string MainScript { get; set; }
 
+        public bool IsNew
+        {
+            get
+            {
+                return string.IsNullOrEmpty(this.MainScriptFilePath);
+            }
+        }
+
         public bool HasChanges { get; private set; }
 
+        /// <summary>
+        /// Saves project
+        /// </summary>
+        /// <param name="path">Project location in the file system</param>
+        public void SaveProject(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                path = this.MainScriptFilePath;
+            }
+
+            File.WriteAllText(path, this.MainScript);
+            this.MainScriptFilePath = path;
+        }
     }
 }
