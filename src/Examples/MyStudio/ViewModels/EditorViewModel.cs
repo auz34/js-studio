@@ -13,14 +13,11 @@
     {
         private bool isMainScript;
 
-        private JsProject currentProject;
-
         public EditorViewModel(StudioStateModel studioState)
         {
             Argument.IsNotNull(() => studioState);
 
             this.StudioState = studioState;
-            this.SetCurrentProject(studioState.CurrentProject);
             this.isMainScript = true;
         }
 
@@ -53,30 +50,8 @@
             base.OnModelPropertyChanged(sender, e);
             if (e.PropertyName == "CurrentProject")
             {
-                this.SetCurrentProject(this.StudioState.CurrentProject);
+                this.RaisePropertyChanged(() => this.ScriptText);
             }
-        }
-
-        private void SetCurrentProject(JsProject project)
-        {
-            if (this.currentProject == project)
-            {
-                return;
-            }
-
-            if (this.currentProject != null)
-            {
-                this.currentProject.PropertyChanged -= this.OnProjectPropertyChanged;
-            }
-
-            this.currentProject = project;
-            this.currentProject.PropertyChanged += this.OnProjectPropertyChanged;
-            this.RaisePropertyChanged(() => this.ScriptText);
-        }
-
-        private void OnProjectPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            // nop
         }
     }
 }

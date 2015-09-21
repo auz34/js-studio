@@ -61,6 +61,8 @@
             commandManager.RegisterCommand("Script.Save", this.SaveProjectCommand);
             commandManager.RegisterCommand("Script.SaveAs", this.SaveProjectAsCommand);
             commandManager.RegisterCommand("App.Exit", this.ExitCommand);
+
+            this.model.ProjectPropertyChanged += this.OnProjectPropertyChanged;
         }
 
         public Command UndoCommand { get; private set; }
@@ -213,6 +215,11 @@
         private bool CanStart()
         {
             return !this.model.IsSessionActive;
+        }
+
+        private void OnProjectPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            this.SaveProjectCommand.RaiseCanExecuteChanged();
         }
     }
 }

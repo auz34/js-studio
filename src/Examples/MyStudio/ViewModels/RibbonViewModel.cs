@@ -30,7 +30,5 @@
                 return this.commandsService != null ? this.commandsService.StartCommand : null;
             }
         }
-
-        
     }
 }

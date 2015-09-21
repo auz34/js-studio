@@ -11,8 +11,8 @@
     {
         public JsProject()
         {
-            this.HasChanges = false;
             this.MainScript = "// Start type here";
+            this.HasChanges = false;
         }
 
         public JsProject(string filePath)
@@ -69,7 +69,10 @@
         protected override void OnPropertyChanged(AdvancedPropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
-            this.HasChanges = true;
+            if (e.PropertyName == "MainScript")
+            {
+                this.HasChanges = true;
+            }
         }
     }
 }
