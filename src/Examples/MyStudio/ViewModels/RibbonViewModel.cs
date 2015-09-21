@@ -30,5 +30,21 @@
                 return this.commandsService != null ? this.commandsService.StartCommand : null;
             }
         }
+
+        public Command UndoCommand
+        {
+            get
+            {
+                return this.commandsService != null ? this.commandsService.UndoCommand : null;
+            }
+        }
+
+        public Command RedoCommand
+        {
+            get
+            {
+                return this.commandsService != null ? this.commandsService.UndoCommand : null;
+            }
+        }
     }
 }
