@@ -5,6 +5,7 @@
     using System.Diagnostics.Tracing;
 
     using Catel;
+    using Catel.Memento;
     using Catel.MVVM;
 
     using MyStudio.Models;
@@ -13,12 +14,26 @@
     {
         private bool isMainScript;
 
-        public EditorViewModel(StudioStateModel studioState)
+        public readonly IMementoService mementoService;
+
+        public EditorViewModel(StudioStateModel studioState,
+            IMementoService mementoService)
         {
             Argument.IsNotNull(() => studioState);
+            Argument.IsNotNull(() => mementoService);
 
             this.StudioState = studioState;
+            this.StudioState.ProjectPropertyChanged += StudioState_ProjectPropertyChanged;
+            this.mementoService = mementoService;
             this.isMainScript = true;
+        }
+
+        void StudioState_ProjectPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "MainScript")
+            {
+                this.RaisePropertyChanged(() => this.ScriptText);
+            }
         }
 
         [Model]
@@ -40,6 +55,13 @@
 
                 if (this.isMainScript)
                 {
+                    this.mementoService.Add(
+                        new PropertyChangeUndo(
+                            this.StudioState.CurrentProject,
+                            "MainScript",
+                            this.StudioState.CurrentProject.MainScript,
+                            value));
+
                     this.StudioState.CurrentProject.MainScript = value;
                 }
             }

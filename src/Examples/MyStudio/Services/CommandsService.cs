@@ -220,6 +220,8 @@
         private void OnProjectPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             this.SaveProjectCommand.RaiseCanExecuteChanged();
+            this.UndoCommand.RaiseCanExecuteChanged();
+            this.RedoCommand.RaiseCanExecuteChanged();
         }
     }
 }

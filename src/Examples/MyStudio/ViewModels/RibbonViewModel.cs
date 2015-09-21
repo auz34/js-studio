@@ -43,7 +43,7 @@
         {
             get
             {
-                return this.commandsService != null ? this.commandsService.UndoCommand : null;
+                return this.commandsService != null ? this.commandsService.RedoCommand : null;
             }
         }
     }
