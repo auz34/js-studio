@@ -11,6 +11,9 @@
 
     using MyStudio.Models;
 
+    using Orchestra.Models;
+    using Orchestra.Services;
+
     public class CommandsService : ICommandsService
     {
         private readonly IMementoService mementoService;
@@ -23,6 +26,8 @@
 
         private readonly ISaveFileService saveFileService;
 
+        private readonly IRecentlyUsedItemsService recentlyUsedItemsService;
+
         private readonly StudioStateModel model;
 
         public CommandsService(StudioStateModel model,
@@ -30,6 +35,7 @@
             IMementoService mementoService,
             IMessageService messageService,
             IOpenFileService openFileService,
+            IRecentlyUsedItemsService recentlyUsedItemsService,
             ISaveFileService saveFileService)
         {
             Argument.IsNotNull(() => model);
@@ -37,6 +43,7 @@
             Argument.IsNotNull(() => mementoService);
             Argument.IsNotNull(() => messageService);
             Argument.IsNotNull(() => openFileService);
+            Argument.IsNotNull(() => recentlyUsedItemsService);
             Argument.IsNotNull(() => saveFileService);
 
             this.model = model;
@@ -44,6 +51,7 @@
             this.mementoService = mementoService;
             this.messageService = messageService;
             this.openFileService = openFileService;
+            this.recentlyUsedItemsService = recentlyUsedItemsService;
             this.saveFileService = saveFileService;
 
             this.UndoCommand = new Command(this.Undo, this.CanUndo);
@@ -143,6 +151,7 @@
             if (this.openFileService.DetermineFile())
             {
                 this.model.CurrentProject = new JsProject(this.openFileService.FileName);
+                this.recentlyUsedItemsService.AddItem(new RecentlyUsedItem(this.openFileService.FileName, DateTime.Now));
             }
         }
 

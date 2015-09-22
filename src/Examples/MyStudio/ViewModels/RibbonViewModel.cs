@@ -1,6 +1,8 @@
 ﻿namespace MyStudio.ViewModels
 {
+    using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     using Catel;
     using Catel.MVVM;
@@ -33,6 +35,8 @@
 
             this.RecentlyUsedItems = new List<RecentlyUsedItem>(this.recentlyUsedItemsService.Items);
             this.PinnedItems = new List<RecentlyUsedItem>(this.recentlyUsedItemsService.PinnedItems);
+
+            this.recentlyUsedItemsService.Updated += this.OnRecentlyUsedItemsServiceUpdated;
         }
 
 
@@ -63,5 +67,11 @@
         public List<RecentlyUsedItem> RecentlyUsedItems { get; private set; }
 
         public List<RecentlyUsedItem> PinnedItems { get; private set; }
+
+        private void OnRecentlyUsedItemsServiceUpdated(object sender, EventArgs e)
+        {
+            this.RecentlyUsedItems = new List<RecentlyUsedItem>(this.recentlyUsedItemsService.Items);
+            this.PinnedItems = new List<RecentlyUsedItem>(this.recentlyUsedItemsService.PinnedItems);
+        }
     }
 }
