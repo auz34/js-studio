@@ -1,4 +1,10 @@
-﻿namespace MyStudio.Services
+﻿// -----------------------------------------------------------------------
+// <copyright file="ApplicationInitializationService.cs">
+// Copyright (c) 2015 Andrew Zavgorodniy. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace MyStudio.Services
 {
     using System;
     using System.Threading;

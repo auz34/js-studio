@@ -1,4 +1,10 @@
-﻿namespace MyStudio.Models
+﻿// -----------------------------------------------------------------------
+// <copyright file="JsProject.cs">
+// Copyright (c) 2015 Andrew Zavgorodniy. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace MyStudio.Models
 {
     using System;
 

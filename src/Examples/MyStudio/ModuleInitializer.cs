@@ -1,4 +1,10 @@
-﻿using Catel.IoC;
+﻿// -----------------------------------------------------------------------
+// <copyright file="ModuleInitializer.cs">
+// Copyright (c) 2015 Andrew Zavgorodniy. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+using Catel.IoC;
 using Orchestra.Services;
 using MyStudio.Services;
 

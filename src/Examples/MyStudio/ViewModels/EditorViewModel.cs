@@ -1,8 +1,12 @@
-﻿namespace MyStudio.ViewModels
+﻿// -----------------------------------------------------------------------
+// <copyright file="RibbonService.cs">
+// Copyright (c) 2015 Andrew Zavgorodniy. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace MyStudio.ViewModels
 {
-    using System;
     using System.ComponentModel;
-    using System.Diagnostics.Tracing;
 
     using Catel;
     using Catel.Memento;

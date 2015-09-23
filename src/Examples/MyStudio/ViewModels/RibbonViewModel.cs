@@ -1,8 +1,13 @@
-﻿namespace MyStudio.ViewModels
+﻿// -----------------------------------------------------------------------
+// <copyright file="RibbonViewModel.cs">
+// Copyright (c) 2015 Andrew Zavgorodniy. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace MyStudio.ViewModels
 {
     using System;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     using Catel;
     using Catel.MVVM;
