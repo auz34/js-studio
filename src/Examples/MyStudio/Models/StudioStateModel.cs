@@ -26,6 +26,9 @@ namespace MyStudio.Models
 
         public event EventHandler<PropertyChangedEventArgs> ProjectPropertyChanged;
 
+        /// <summary>
+        /// Gets a value indicating whether debug session is active
+        /// </summary>
         public bool IsSessionActive
         {
             get
@@ -34,6 +37,9 @@ namespace MyStudio.Models
             }
         }
 
+        /// <summary>
+        /// Gets or sets current project
+        /// </summary>
         public JsProject CurrentProject
         {
             get
@@ -57,8 +63,14 @@ namespace MyStudio.Models
             }
         }
 
+        /// <summary>
+        /// Gets current interpreter
+        /// </summary>
         public IInterpreter Interpreter { get; private set; }
 
+        /// <summary>
+        /// Starts debug session
+        /// </summary>
         public void StartSession()
         {
             if (this.Interpreter != null)

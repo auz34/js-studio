@@ -7,10 +7,10 @@
 namespace MyStudio.Services
 {
     using System;
+    using System.ComponentModel;
     using System.Windows;
 
     using Catel;
-    using Catel.Data;
     using Catel.Memento;
     using Catel.MVVM;
     using Catel.Services;
@@ -79,26 +79,41 @@ namespace MyStudio.Services
             this.model.ProjectPropertyChanged += this.OnProjectPropertyChanged;
         }
 
+        /// <summary>
+        /// Gets Undo command
+        /// </summary>
         public Command UndoCommand { get; private set; }
 
+        /// <summary>
+        /// Gets Redo command
+        /// </summary>
         public Command RedoCommand { get; private set; }
 
+        /// <summary>
+        /// Gets OpenProject command
+        /// </summary>
         public Command OpenProjectCommand { get; private set; }
 
+        /// <summary>
+        /// Gets SaveProject command
+        /// </summary>
         public Command SaveProjectCommand { get; private set; }
 
+        /// <summary>
+        /// Gets SaveProjectAs command
+        /// </summary>
         public Command SaveProjectAsCommand { get; private set; }
 
+        /// <summary>
+        /// Gets Start command
+        /// </summary>
         public Command StartCommand { get; private set; }
 
         /// <summary>
         /// Gets the Exit command.
         /// </summary>
         public Command ExitCommand { get; private set; }
-
-        /// <summary>
-        /// The undo.
-        /// </summary>
+        
         private void Undo()
         {
             this.mementoService.Undo();
@@ -232,7 +247,7 @@ namespace MyStudio.Services
             return !this.model.IsSessionActive;
         }
 
-        private void OnProjectPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void OnProjectPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             this.SaveProjectCommand.RaiseCanExecuteChanged();
             this.UndoCommand.RaiseCanExecuteChanged();
