@@ -1,4 +1,10 @@
-﻿namespace MyStudio.Behaviors
+﻿// -----------------------------------------------------------------------
+// <copyright file="BindableEditorText.cs">
+// Copyright (c) 2015 Andrew Zavgorodniy. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace MyStudio.Behaviors
 {
     using System;
     using System.Reactive.Linq;
