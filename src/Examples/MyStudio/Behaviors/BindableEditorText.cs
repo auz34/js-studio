@@ -48,8 +48,8 @@ namespace MyStudio.Behaviors
         /// <summary>
         /// Sets bindable text.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="value"></param>
+        /// <param name="obj">The text value reciever.</param>
+        /// <param name="value">Te text value</param>
         public static void SetBindableText(DependencyObject obj, string value)
         {
             obj.SetValue(BindableTextProperty, value);

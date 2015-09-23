@@ -1,4 +1,10 @@
-﻿namespace MyStudio
+﻿// -----------------------------------------------------------------------
+// <copyright file="App.xaml.cs">
+// Copyright (c) 2015 Andrew Zavgorodniy. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace MyStudio
 {
     using System;
     using System.Diagnostics;

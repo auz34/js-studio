@@ -42,10 +42,19 @@ namespace MyStudio.Models
             this.MainScript = File.ReadAllText(this.MainScriptFilePath);
         }
 
+        /// <summary>
+        /// Gets file path for project main script
+        /// </summary>
         public string MainScriptFilePath { get; private set; }
 
+        /// <summary>
+        /// Gets or sets current value of the main script
+        /// </summary>
         public string MainScript { get; set; }
 
+        /// <summary>
+        /// Gets a value indicating whether project is new
+        /// </summary>
         public bool IsNew
         {
             get
@@ -54,6 +63,9 @@ namespace MyStudio.Models
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether project has any changes
+        /// </summary>
         public bool HasChanges { get; private set; }
 
         /// <summary>
