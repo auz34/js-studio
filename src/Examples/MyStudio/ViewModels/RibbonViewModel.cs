@@ -69,6 +69,14 @@ namespace MyStudio.ViewModels
             }
         }
 
+        public Command<string> OpenRecentlyUsedItem
+        {
+            get
+            {
+                return this.commandsService != null ? this.commandsService.OpenRecentlyUsedItem : null;
+            }
+        }
+
         public List<RecentlyUsedItem> RecentlyUsedItems { get; private set; }
 
         public List<RecentlyUsedItem> PinnedItems { get; private set; }

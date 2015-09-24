@@ -8,6 +8,7 @@ namespace MyStudio.Services
 {
     using System;
     using System.ComponentModel;
+    using System.Linq;
     using System.Windows;
 
     using Catel;
@@ -67,6 +68,8 @@ namespace MyStudio.Services
             this.SaveProjectAsCommand = new Command(delegate { this.SaveAsProject(); }, () => true);
             this.SaveProjectCommand = new Command(delegate { this.SaveProject(); }, this.CanSave);
 
+            this.OpenRecentlyUsedItemCommand = new Command<string>(this.OnOpenRecentlyUsedItemExecute);
+
             this.StartCommand = new Command(this.Start, this.CanStart);
 
             this.ExitCommand = new Command(this.Exit);
@@ -105,6 +108,11 @@ namespace MyStudio.Services
         public Command SaveProjectAsCommand { get; private set; }
 
         /// <summary>
+        /// Gets command of opening recently used item.
+        /// </summary>
+        public Command<string> OpenRecentlyUsedItemCommand { get; private set; }
+
+        /// <summary>
         /// Gets Start command
         /// </summary>
         public Command StartCommand { get; private set; }
@@ -141,6 +149,58 @@ namespace MyStudio.Services
         private bool CanRedo()
         {
             return this.mementoService.CanUndo;
+        }
+
+        /// <summary>
+        /// Method to invoke when the OpenRecentlyUsedItem command is executed.
+        /// </summary>
+        private async void OnOpenRecentlyUsedItemExecute(string parameter)
+        {
+            if (this.CanSave())
+            {
+                switch (await this.messageService.ShowAsync("Do you want to save changes?", "Save changes?", MessageButton.YesNoCancel))
+                {
+                    case MessageResult.Cancel:
+                        return;
+
+                    case MessageResult.Yes:
+                        if (!this.SaveProject())
+                        {
+                            return;
+                        }
+                        break;
+
+                    case MessageResult.No:
+                        break;
+
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            var failed = false;
+
+            try
+            {
+                this.model.CurrentProject = new JsProject(parameter);
+                this.recentlyUsedItemsService.AddItem(new RecentlyUsedItem(parameter, DateTime.Now));
+            }
+            catch (Exception)
+            {
+                failed = true;
+            }
+
+            if (failed)
+            {
+                if (await this.messageService.ShowAsync("The directory does not exist or has been removed. Would you like to remove it from the recently used list?", "Remove from recently used items?", MessageButton.YesNo) == MessageResult.Yes)
+                {
+                    var recentlyUsedItem = this.recentlyUsedItemsService.Items.FirstOrDefault(x => string.Equals(x.Name, parameter));
+                    if (recentlyUsedItem != null)
+                    {
+                        this.recentlyUsedItemsService.RemoveItem(recentlyUsedItem);
+                    }
+                }
+            }
         }
 
         private async void OpenProject()

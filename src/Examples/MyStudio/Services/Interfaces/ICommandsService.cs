@@ -31,6 +31,11 @@ namespace MyStudio.Services
         Command SaveProjectCommand { get; }
 
         /// <summary>
+        /// Gets command of opening recently used item.
+        /// </summary>
+        Command<string> OpenRecentlyUsedItem { get; }
+
+        /// <summary>
         /// Gets command of starting new execution.
         /// </summary>
         Command StartCommand { get; } 
