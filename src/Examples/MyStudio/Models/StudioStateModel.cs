@@ -59,6 +59,7 @@ namespace MyStudio.Models
                 }
 
                 this.currentProject = value;
+                this.RaisePropertyChanged(() => this.CurrentProject);
                 this.currentProject.PropertyChanged += this.OnProjectPropertyChanged;
             }
         }
