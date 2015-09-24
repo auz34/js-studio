@@ -27,17 +27,9 @@ namespace MyStudio.ViewModels
             Argument.IsNotNull(() => mementoService);
 
             this.StudioState = studioState;
-            this.StudioState.ProjectPropertyChanged += StudioState_ProjectPropertyChanged;
+            this.StudioState.ProjectPropertyChanged += this.OnStudioStateProjectPropertyChanged;
             this.mementoService = mementoService;
             this.isMainScript = true;
-        }
-
-        void StudioState_ProjectPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "MainScript")
-            {
-                this.RaisePropertyChanged(() => this.ScriptText);
-            }
         }
 
         [Model]
@@ -75,6 +67,14 @@ namespace MyStudio.ViewModels
         {
             base.OnModelPropertyChanged(sender, e);
             if (e.PropertyName == "CurrentProject")
+            {
+                this.RaisePropertyChanged(() => this.ScriptText);
+            }
+        }
+
+        private void OnStudioStateProjectPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "MainScript")
             {
                 this.RaisePropertyChanged(() => this.ScriptText);
             }
