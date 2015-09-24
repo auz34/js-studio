@@ -73,7 +73,7 @@ namespace MyStudio.ViewModels
         {
             get
             {
-                return this.commandsService != null ? this.commandsService.OpenRecentlyUsedItem : null;
+                return this.commandsService != null ? this.commandsService.OpenRecentlyUsedItemCommand : null;
             }
         }
 

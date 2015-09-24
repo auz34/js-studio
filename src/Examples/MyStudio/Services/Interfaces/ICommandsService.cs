@@ -33,7 +33,7 @@ namespace MyStudio.Services
         /// <summary>
         /// Gets command of opening recently used item.
         /// </summary>
-        Command<string> OpenRecentlyUsedItem { get; }
+        Command<string> OpenRecentlyUsedItemCommand { get; }
 
         /// <summary>
         /// Gets command of starting new execution.
