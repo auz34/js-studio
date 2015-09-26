@@ -70,6 +70,9 @@ namespace MyStudio.Services
 
             this.OpenRecentlyUsedItemCommand = new Command<string>(this.OnOpenRecentlyUsedItemExecute);
 
+            this.PinItemCommand = new Command<string>(this.PinItem);
+            this.UnpinItemCommand = new Command<string>(this.UnpinItem);
+
             this.StartCommand = new Command(this.Start, this.CanStart);
 
             this.ExitCommand = new Command(this.Exit);
@@ -116,6 +119,16 @@ namespace MyStudio.Services
         /// Gets Start command
         /// </summary>
         public Command StartCommand { get; private set; }
+
+        /// <summary>
+        /// Gets the Pin command.
+        /// </summary>
+        public Command<string> PinItemCommand { get; private set; }
+
+        /// <summary>
+        /// Gets the Unpin command.
+        /// </summary>
+        public Command<string> UnpinItemCommand { get; private set; }
 
         /// <summary>
         /// Gets the Exit command.
@@ -305,6 +318,22 @@ namespace MyStudio.Services
         private bool CanStart()
         {
             return !this.model.IsSessionActive;
+        }
+
+        /// <summary>
+        /// Method to invoke when the Pin command is executed.
+        /// </summary>
+        private void PinItem(string parameter)
+        {
+            this.recentlyUsedItemsService.PinItem(parameter);
+        }
+
+        /// <summary>
+        /// Method to invoke when the Unpin command is executed.
+        /// </summary>
+        private void UnpinItem(string parameter)
+        {
+            this.recentlyUsedItemsService.UnpinItem(parameter);
         }
 
         private void OnProjectPropertyChanged(object sender, PropertyChangedEventArgs e)

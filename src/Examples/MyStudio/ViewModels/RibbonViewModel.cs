@@ -77,6 +77,22 @@ namespace MyStudio.ViewModels
             }
         }
 
+        public Command<string> PinItemCommand
+        {
+            get
+            {
+                return this.commandsService != null ? this.commandsService.PinItemCommand : null;
+            }
+        }
+
+        public Command<string> UnpinItemCommand
+        {
+            get
+            {
+                return this.commandsService != null ? this.commandsService.UnpinItemCommand : null;
+            }
+        }
+
         public List<RecentlyUsedItem> RecentlyUsedItems { get; private set; }
 
         public List<RecentlyUsedItem> PinnedItems { get; private set; }

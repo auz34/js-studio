@@ -38,6 +38,16 @@ namespace MyStudio.Services
         /// <summary>
         /// Gets command of starting new execution.
         /// </summary>
-        Command StartCommand { get; } 
+        Command StartCommand { get; }
+
+        /// <summary>
+        /// Gets the Pin command.
+        /// </summary>
+        Command<string> PinItemCommand { get; }
+
+        /// <summary>
+        /// Gets the Unpin command.
+        /// </summary>
+        Command<string> UnpinItemCommand { get; }
     }
 }
