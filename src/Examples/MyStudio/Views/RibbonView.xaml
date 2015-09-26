@@ -38,7 +38,7 @@
                                                                           Command="{Binding ElementName=recentlyUsedItemsRibbonGallery, Path=DataContext.OpenRecentlyUsedItem}" 
                                                                           CommandParameter="{Binding Name}" ToolTip="{Binding Name}" HorizontalContentAlignment="Left" />
 
-                                        <Button Grid.Column="2" Command="{Binding ElementName=recentlyUsedItemsRibbonGallery, Path=DataContext.OpenInExplorer}"
+                                        <Button Grid.Column="2" Command="{Binding ElementName=recentlyUsedItemsRibbonGallery, Path=DataContext.OpenInExplorerCommand}"
                                                 CommandParameter="{Binding Name}" Width="24" Height="24"
                                                 ToolTip="Open in explorer">
                                             <Image Source="/Resources/Images/explorer.png" />
@@ -86,7 +86,7 @@
                                                                           Command="{Binding ElementName=recentlyUsedItemsRibbonGallery, Path=DataContext.OpenRecentlyUsedItem}" 
                                                                           CommandParameter="{Binding Name}" ToolTip="{Binding Name}" HorizontalContentAlignment="Left" />
 
-                                        <Button Grid.Column="2" Command="{Binding ElementName=recentlyUsedItemsRibbonGallery, Path=DataContext.OpenInExplorer}"
+                                        <Button Grid.Column="2" Command="{Binding ElementName=recentlyUsedItemsRibbonGallery, Path=DataContext.OpenInExplorerCommand}"
                                                 CommandParameter="{Binding Name}" Width="24" Height="24"
                                                 ToolTip="Open in explorer">
                                             <Image Source="/Resources/Images/explorer.png" />

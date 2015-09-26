@@ -8,6 +8,7 @@ namespace MyStudio.Services
 {
     using System;
     using System.ComponentModel;
+    using System.IO;
     using System.Linq;
     using System.Windows;
 
@@ -35,6 +36,8 @@ namespace MyStudio.Services
 
         private readonly IRecentlyUsedItemsService recentlyUsedItemsService;
 
+        private readonly IProcessService processService;
+
         private readonly StudioStateModel model;
 
         public CommandsService(StudioStateModel model,
@@ -43,7 +46,8 @@ namespace MyStudio.Services
             IMessageService messageService,
             IOpenFileService openFileService,
             IRecentlyUsedItemsService recentlyUsedItemsService,
-            ISaveFileService saveFileService)
+            ISaveFileService saveFileService,
+            IProcessService processService)
         {
             Argument.IsNotNull(() => model);
             Argument.IsNotNull(() => commandManager);
@@ -52,6 +56,7 @@ namespace MyStudio.Services
             Argument.IsNotNull(() => openFileService);
             Argument.IsNotNull(() => recentlyUsedItemsService);
             Argument.IsNotNull(() => saveFileService);
+            Argument.IsNotNull(() => processService);
 
             this.model = model;
             this.commandManager = commandManager;
@@ -60,6 +65,7 @@ namespace MyStudio.Services
             this.openFileService = openFileService;
             this.recentlyUsedItemsService = recentlyUsedItemsService;
             this.saveFileService = saveFileService;
+            this.processService = processService;
 
             this.UndoCommand = new Command(this.Undo, this.CanUndo);
             this.RedoCommand = new Command(this.Redo, this.CanRedo);
@@ -72,6 +78,7 @@ namespace MyStudio.Services
 
             this.PinItemCommand = new Command<string>(this.PinItem);
             this.UnpinItemCommand = new Command<string>(this.UnpinItem);
+            this.OpenInExplorerCommand = new Command<string>(this.OpenInExplorer);
 
             this.StartCommand = new Command(this.Start, this.CanStart);
 
@@ -129,6 +136,11 @@ namespace MyStudio.Services
         /// Gets the Unpin command.
         /// </summary>
         public Command<string> UnpinItemCommand { get; private set; }
+
+        /// <summary>
+        /// Gets the OpenInExplorer command.
+        /// </summary>
+        public Command<string> OpenInExplorerCommand { get; private set; }
 
         /// <summary>
         /// Gets the Exit command.
@@ -334,6 +346,21 @@ namespace MyStudio.Services
         private void UnpinItem(string parameter)
         {
             this.recentlyUsedItemsService.UnpinItem(parameter);
+        }
+
+        /// <summary>
+        /// Method to invoke when the OpenInExplorer command is executed.
+        /// </summary>
+        private async void OpenInExplorer(string parameter)
+        {
+            if (!File.Exists(parameter))
+            {
+                await this.messageService.ShowWarningAsync("The file doesn't seem to exist. Cannot open the file in explorer.");
+                return;
+            }
+
+
+            this.processService.StartProcess(Path.GetDirectoryName(parameter));
         }
 
         private void OnProjectPropertyChanged(object sender, PropertyChangedEventArgs e)

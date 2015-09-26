@@ -49,5 +49,10 @@ namespace MyStudio.Services
         /// Gets the Unpin command.
         /// </summary>
         Command<string> UnpinItemCommand { get; }
+
+        /// <summary>
+        /// Gets the OpenInExplorer command.
+        /// </summary>
+        Command<string> OpenInExplorerCommand { get; }
     }
 }

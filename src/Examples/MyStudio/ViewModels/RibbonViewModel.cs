@@ -93,6 +93,14 @@ namespace MyStudio.ViewModels
             }
         }
 
+        public Command<string> OpenInExplorerCommand
+        {
+            get
+            {
+                return this.commandsService != null ? this.commandsService.OpenInExplorerCommand : null;
+            }
+        }
+
         public List<RecentlyUsedItem> RecentlyUsedItems { get; private set; }
 
         public List<RecentlyUsedItem> PinnedItems { get; private set; }
